@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DarkMushroomGames.Architecture;
 using PlayerActions;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,16 +22,33 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [SerializeField, Tooltip("The parent to hold all the buttons.")]
     private Transform buttonLayoutParent;
 
-    private List<PlayerAction> morningActions;
-    private List<PlayerAction> afternoonActions;
-    private List<PlayerAction> eveningActions;
+    private List<PlayerAction> _morningActions;
+    private List<PlayerAction> _afternoonActions;
+    private List<PlayerAction> _eveningActions;
+
+    private List<GameObject> _buttons;
 
     // Building actions should be added
     // Location actions
 
+    public void Awake()
+    {
+        _morningActions = new List<PlayerAction>();
+        _buttons = new List<GameObject>();
+    }
+    
     public void Start()
     {
-        DisplayActions(new List<PlayerAction>());
+        // Setup Morning Actions
+        _morningActions.Add(new MoveHouseAction());
+        _morningActions.Add(new MoveHouseAction());
+        _morningActions.Add(new MoveHouseAction());
+        _morningActions.Add(new MoveHouseAction());
+        
+        // Setup Afternoon Actions
+        
+        // Setup Evening Actions
+        DisplayActions(_morningActions);
     }
 
     public void StartOfDay()
@@ -47,10 +65,23 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     {
         Debug.Log("Displaying Actions.");
         //Setup the UI to show the actions
-        var button = Instantiate(playerActionButtonPrefab, buttonLayoutParent);
-        
-        var newAction = new PlayerAction();
-        button.GetComponent<Button>().onClick.AddListener(newAction.CalculateResult);
+
+        foreach (var button in _buttons)
+        {
+            Destroy(button);
+        }
+        _buttons.Clear();
+
+        var selectedAction = _morningActions[0];
+        foreach (var playerAction in actionsToShow)
+        {
+            var button = Instantiate(playerActionButtonPrefab, buttonLayoutParent);
+            _buttons.Add(button);
+            button.SetActive(true);
+            
+            button.GetComponentInChildren<TextMeshProUGUI>().text = selectedAction.ButtonName;
+            button.GetComponent<Button>().onClick.AddListener(selectedAction.CalculateResult);
+        }
     }
 
     /// <summary>
@@ -66,8 +97,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
         for (int i = 0; i < numberofActionsPerPhase; i++)
         {
-            Debug.Log("i: " + i.ToString());
-
             selectedActions = new List<PlayerAction>();
         }
 

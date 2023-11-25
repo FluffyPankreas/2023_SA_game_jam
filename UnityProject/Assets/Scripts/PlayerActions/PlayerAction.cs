@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace PlayerActions
 {
     /// <summary>
@@ -7,6 +5,8 @@ namespace PlayerActions
     /// </summary>
     public abstract class PlayerAction
     {
+        public string ButtonName = "Set the button name.";
+        
         /// <summary>
         /// Calculates the result when the action is taken.
         /// </summary>
