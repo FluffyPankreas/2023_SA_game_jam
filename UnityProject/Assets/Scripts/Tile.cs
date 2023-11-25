@@ -9,16 +9,16 @@ public enum Biomes
 }
 public class Tile
 {
-    public readonly Biomes Biome;
+    public Biomes Biome;
 
     public Tile()
     {
-        Biome = GetRandomBiome();
+        RandomizeBiome();
     }
     
-    private Biomes GetRandomBiome()
+    private void RandomizeBiome()
     {
-        return (Biomes)Random.Range(0, 4);
+         Biome = (Biomes)Random.Range(0, 4);
     }
         
     // animals
