@@ -58,23 +58,44 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         Debug.Log("Action Finished.");
         if (currentPhase == TurnPhases.Morning)
         {
-            currentPhase = TurnPhases.Afternoon;
+            SwitchTurnPhase(TurnPhases.Afternoon);
         }else if (currentPhase == TurnPhases.Afternoon)
         {
-            currentPhase = TurnPhases.Evening;
+            SwitchTurnPhase(TurnPhases.Evening);
         }else if (currentPhase == TurnPhases.Evening)
         {
-            currentPhase = TurnPhases.Morning;
+            SwitchTurnPhase(TurnPhases.Morning);
+        }
+    }
+
+    private void SwitchTurnPhase(TurnPhases newPhase)
+    {
+        if (newPhase == TurnPhases.Morning)
+        {
+            StartOfDay();
+            DisplayActions(_morningActions);
+        }
+        
+        if (newPhase == TurnPhases.Afternoon)
+        {
+            DisplayActions(_afternoonActions);
+        }
+        
+        if (newPhase == TurnPhases.Evening)
+        {
+            DisplayActions(_eveningActions);
             EndOfDay();
         }
+
+        currentPhase = newPhase;
     }
    
     private void InitializeGame()
     {
         // Setup Morning Actions
         _morningActions.Clear();
-        _morningActions.Add(new MoveHouseAction());
         _morningActions.Add(new ForageAction());
+        _morningActions.Add(new ScavengeAction());
         
         // Setup Afternoon Actions
         _afternoonActions.Add(new MoveHouseAction());
@@ -82,14 +103,13 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         
         // Setup Evening Actions
         _eveningActions.Add(new MoveHouseAction());
-        _eveningActions.Add(new ForageAction());
+        _eveningActions.Add(new ScavengeAction());
 
-        currentPhase = TurnPhases.Morning;
     }
 
     private void StartGame()
     {
-        DisplayActions(_morningActions);
+        SwitchTurnPhase(TurnPhases.Morning);
     }
     
     private void StartOfDay()
