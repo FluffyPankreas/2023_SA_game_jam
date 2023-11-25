@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     private void StartGame()
     {
         SwitchTurnPhase(TurnPhases.Morning);
+        gameProperties.GenerateNewTile();
     }
     
     private void StartOfDay()
@@ -143,7 +144,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     private void DisplayActions(List<PlayerAction> actionsToShow)
     {
         Debug.Log("Displaying Actions.");
-        //Setup the UI to show the actions
 
         foreach (var button in _buttons)
         {
