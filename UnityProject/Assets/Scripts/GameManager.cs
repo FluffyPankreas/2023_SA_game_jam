@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [SerializeField, Tooltip("Reference to the player attributes script.")]
     private Attributes playerAttributes;
 
+    [SerializeField, Tooltip("Reference to the game properties")]
+    public GameProperties gameProperties;
+
     [SerializeField, Tooltip("The number of actions that will be selected from all possible actions.")]
     private int numberofActionsPerPhase = 3;
 
@@ -92,6 +95,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
    
     private void InitializeGame()
     {
+        gameProperties.currentDay = 0;
+        
         // Setup Morning Actions
         _morningActions.Clear();
         _morningActions.Add(new ForageAction());
@@ -105,6 +110,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         _eveningActions.Add(new MoveHouseAction());
         _eveningActions.Add(new ScavengeAction());
 
+        playerResources.food = 5;
+        playerResources.water = 5;
     }
 
     private void StartGame()
@@ -114,10 +121,21 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     
     private void StartOfDay()
     {
+        gameProperties.currentDay++;
     }
 
     private void EndOfDay()
     {
+        playerResources.food -= 3;
+        playerResources.water -= 1;
+
+        if (playerResources.food <= 0 || playerResources.water <= 0)
+        {
+            Debug.Log("LOSE.");
+        }
+
+        //check the baba yaga distance from the player.
+        
         // Do end of day calculations and see if the player loses.
         StartOfDay();
     }
