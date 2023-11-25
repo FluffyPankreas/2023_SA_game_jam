@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using DarkMushroomGames.Architecture;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
@@ -11,33 +9,33 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [SerializeField,Tooltip("Reference to the player attributes script.")]
     private Attributes playerAttributes;
     
-    [SerializeField,Tooltip("The list of potential actions the player can take in the morning.")]
     private List<PlayerAction> morningActions;
-    
+    private List<PlayerAction> afternoonActions;
+    private List<PlayerAction> eveningActions;
     public void StartOfDay()
     {
-        
+        // Start of day -> Morning action -> Afternoon Action -> Evening Action -> End of Day
     }
-
+    
     public void EndOfDay()
     {
-        //subtract water/food 
-        //
-        
+        // Do end of day calculations and see if the player loses.
     }
 
-    private void SelectMorningActions()
+    
+    private void DisplayActions(List<PlayerAction> actionsToShow)
     {
-        
+        //Setup the UI to show the actions
     }
 
-    private void SelectAfternoonActions()
+    /// <summary>
+    /// Selects a subset of actions from the list and returns the subset.
+    /// </summary>
+    /// <param name="allActions">All the actions to choose a subset from.</param>
+    private List<PlayerAction> SelectActions(List<PlayerAction> allActions)
     {
-        
+        //TODO: Implement the selection.
+        return allActions;
     }
 
-    private void SelectEveningActions()
-    {
-        
-    }
 }
