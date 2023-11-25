@@ -67,15 +67,17 @@ public class Tile
     private void SetWeatherCondition()
     {
         //TODO: set the weather condition. Random chances based on the terrain type.
+        WeatherCondition = (WeatherConditions)Random.Range(0, 2);
     }
 
     private void SetFauna()
     {
         //TODO: Set the fauna type. Random chances based on the terrain type.
+        Fauna = (FaunaTypes)Random.Range((int)FaunaTypes.None, (int)FaunaTypes.Dangerous);
     }
 
     private void SetCity()
     {
-        
+        HasCity = Random.Range(0, 10) > 5;
     }
 }

@@ -22,10 +22,22 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     [Header("Current Tile")]
     [SerializeField]
     private TextMeshProUGUI currentTileBiomeLabel;
+    [SerializeField]
+    private TextMeshProUGUI currentTileWeatherLabel;
+    [SerializeField]
+    private TextMeshProUGUI currentTileFaunaLabel;
+    [SerializeField]
+    private TextMeshProUGUI currentTileHasCityLabel;
     
     [Header("Next Tile")]
     [SerializeField]
     private TextMeshProUGUI nextTileBiomeLabel;
+    [SerializeField]
+    private TextMeshProUGUI nextTileWeatherLabel;
+    [SerializeField]
+    private TextMeshProUGUI nextTileFaunaLabel;
+    [SerializeField]
+    private TextMeshProUGUI nextTileHasCityLabel;
     
     public void Update()
     {
@@ -36,6 +48,13 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         phasesLabel.text = GameManager.Instance.currentPhase.ToString();
 
         currentTileBiomeLabel.text = "Biome: " + GameManager.Instance.gameProperties.currentTile.Biome;
+        currentTileWeatherLabel.text = "Weather: " + GameManager.Instance.gameProperties.currentTile.WeatherCondition;
+        currentTileFaunaLabel.text = "Fauna: " + GameManager.Instance.gameProperties.currentTile.Fauna;
+        currentTileHasCityLabel.text = "HasCity: " + GameManager.Instance.gameProperties.currentTile.HasCity;
+        
         nextTileBiomeLabel.text = "Biome: " + GameManager.Instance.gameProperties.nextTile.Biome;
+        nextTileWeatherLabel.text = "Weather: " + GameManager.Instance.gameProperties.nextTile.WeatherCondition;
+        nextTileFaunaLabel.text = "Fauna: " + GameManager.Instance.gameProperties.nextTile.Fauna;
+        nextTileHasCityLabel.text = "HasCity: " + GameManager.Instance.gameProperties.nextTile.HasCity;
     }
 }
