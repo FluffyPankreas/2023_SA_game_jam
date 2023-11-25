@@ -50,11 +50,11 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         currentTileBiomeLabel.text = "Biome: " + GameManager.Instance.gameProperties.currentTile.Biome;
         currentTileWeatherLabel.text = "Weather: " + GameManager.Instance.gameProperties.currentTile.WeatherCondition;
         currentTileFaunaLabel.text = "Fauna: " + GameManager.Instance.gameProperties.currentTile.Fauna;
-        currentTileHasCityLabel.text = "HasCity: " + GameManager.Instance.gameProperties.currentTile.HasCity;
+        currentTileHasCityLabel.text = "HasCity: " + GameManager.Instance.gameProperties.currentTile.HasSettlement;
         
         nextTileBiomeLabel.text = "Biome: " + GameManager.Instance.gameProperties.nextTile.Biome;
         nextTileWeatherLabel.text = "Weather: " + GameManager.Instance.gameProperties.nextTile.WeatherCondition;
         nextTileFaunaLabel.text = "Fauna: " + GameManager.Instance.gameProperties.nextTile.Fauna;
-        nextTileHasCityLabel.text = "HasCity: " + GameManager.Instance.gameProperties.nextTile.HasCity;
+        nextTileHasCityLabel.text = "HasCity: " + GameManager.Instance.gameProperties.nextTile.HasSettlement;
     }
 }

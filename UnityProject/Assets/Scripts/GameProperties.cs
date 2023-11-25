@@ -15,11 +15,18 @@ public class GameProperties : MonoBehaviour
     public void Start()
     {
         _tiles = new List<Tile>();
-        GenerateNewTile();// Always start with one tile.
     }
 
     public void GenerateNewTile()
     {
         _tiles.Add( new Tile());
+        
+        var tileString = "";
+        foreach (var tile in _tiles)
+        {
+            tileString += tile.Biome;
+            tileString += " -> ";
+        }
+        Debug.Log(tileString);
     }
 }

@@ -12,22 +12,26 @@ public enum WeatherConditions
 {
     Clear,
     Raining,
+    Storm,
+    Overcast,
+    Snow
 }
 
 public enum FaunaTypes
 {
     None,
     Docile,
+    Predator,
+    Poisonous,
     Dangerous
 }
-
 
 public class Tile
 {
     public Biomes Biome;
     public WeatherConditions WeatherCondition;
     public FaunaTypes Fauna;
-    public bool HasCity;
+    public bool HasSettlement;
     
     public int StaminaCost;
 
@@ -37,7 +41,7 @@ public class Tile
         SetStaminaCost();
         SetWeatherCondition();
         SetFauna();
-        SetCity();
+        SetSettlements();
     }
     
     private void RandomizeBiome()
@@ -76,8 +80,8 @@ public class Tile
         Fauna = (FaunaTypes)Random.Range((int)FaunaTypes.None, (int)FaunaTypes.Dangerous);
     }
 
-    private void SetCity()
+    private void SetSettlements()
     {
-        HasCity = Random.Range(0, 10) > 5;
+        HasSettlement = Random.Range(0, 10) > 5;
     }
 }
