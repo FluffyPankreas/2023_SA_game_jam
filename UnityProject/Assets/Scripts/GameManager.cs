@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     {
         if (newPhase == TurnPhases.Morning)
         {
+            EndOfDay();
             StartOfDay();
             DisplayActions(_morningActions);
         }
@@ -93,7 +94,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         if (newPhase == TurnPhases.Evening)
         {
             DisplayActions(_eveningActions);
-            EndOfDay();
         }
 
         currentPhase = newPhase;
@@ -144,8 +144,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         {
             Debug.Log("LOSE.");
         }
-
-        StartOfDay();
     }
 
     private void DisplayActions(List<PlayerAction> actionsToShow)
