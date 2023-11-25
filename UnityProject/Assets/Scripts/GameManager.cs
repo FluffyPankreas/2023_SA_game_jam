@@ -135,9 +135,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             Debug.Log("LOSE.");
         }
 
-        //check the baba yaga distance from the player.
-        
-        // Do end of day calculations and see if the player loses.
         StartOfDay();
     }
 
