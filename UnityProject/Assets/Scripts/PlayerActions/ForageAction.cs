@@ -12,6 +12,8 @@ namespace PlayerActions
         public override void CalculateResult()
         {
             Debug.Log("Forage Action.");
+            GameManager.Instance.AddFood(Random.Range(5, 10));
+            GameManager.Instance.AddWater(Random.Range(0, 5));
         }
     }
 }

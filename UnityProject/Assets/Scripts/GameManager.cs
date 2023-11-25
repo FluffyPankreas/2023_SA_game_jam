@@ -43,6 +43,18 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         StartGame();
     }
 
+    public void AddFood(int foodToAdd)
+    {
+        Debug.Log("Added food: " + foodToAdd);
+        playerResources.food += foodToAdd;
+    }
+
+    public void AddWater(int waterToAdd)
+    {
+        Debug.Log("Added water: " + waterToAdd);
+        playerResources.water += waterToAdd;
+    }
+
     private void InitializeGame()
     {
         // Setup Morning Actions
