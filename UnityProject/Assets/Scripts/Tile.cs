@@ -7,15 +7,37 @@ public enum Biomes
     Mountains,
     Plains
 }
+
+public enum WeatherConditions
+{
+    Clear,
+    Raining,
+}
+
+public enum FaunaTypes
+{
+    None,
+    Docile,
+    Dangerous
+}
+
+
 public class Tile
 {
     public Biomes Biome;
+    public WeatherConditions WeatherCondition;
+    public FaunaTypes Fauna;
+    public bool HasCity;
+    
     public int StaminaCost;
 
     public Tile()
     {
         RandomizeBiome();
-        
+        SetStaminaCost();
+        SetWeatherCondition();
+        SetFauna();
+        SetCity();
     }
     
     private void RandomizeBiome()
@@ -41,10 +63,19 @@ public class Tile
                 break;
         }
     }
+
+    private void SetWeatherCondition()
+    {
+        //TODO: set the weather condition. Random chances based on the terrain type.
+    }
+
+    private void SetFauna()
+    {
+        //TODO: Set the fauna type. Random chances based on the terrain type.
+    }
+
+    private void SetCity()
+    {
         
-    // animals
-    // weather
-    // has some city?
-    // encounter
-    // cost to move to next tile.
+    }
 }
