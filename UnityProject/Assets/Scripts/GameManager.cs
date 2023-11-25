@@ -41,17 +41,13 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public TurnPhases currentPhase;
     
-    private List<PlayerAction> _morningActions;
-    private List<PlayerAction> _afternoonActions;
-    private List<PlayerAction> _eveningActions;
+    private List<PlayerAction> _playerActions;
 
     private List<GameObject> _buttons;
 
     public void Awake()
     {
-        _morningActions = new List<PlayerAction>();
-        _afternoonActions = new List<PlayerAction>();
-        _eveningActions = new List<PlayerAction>();
+        _playerActions = new List<PlayerAction>();
         
         _buttons = new List<GameObject>();
     }
@@ -83,17 +79,17 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         {
             EndOfDay();
             StartOfDay();
-            DisplayActions(_morningActions);
+            DisplayActions(_playerActions);
         }
         
         if (newPhase == TurnPhases.Afternoon)
         {
-            DisplayActions(_afternoonActions);
+            DisplayActions(_playerActions);
         }
         
         if (newPhase == TurnPhases.Evening)
         {
-            DisplayActions(_eveningActions);
+            DisplayActions(_playerActions);
         }
 
         currentPhase = newPhase;
@@ -102,36 +98,31 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     private void InitializeGame()
     {
         gameProperties.currentDay = 0;
+        gameProperties.playerTileIndex = 0;
         
-        // Setup Morning Actions
-        _morningActions.Clear();
-        _morningActions.Add(new MoveHouseAction());
-        _morningActions.Add(new ForageAction());
-        _morningActions.Add(new ScavengeAction());
+        SetupActions();        
         
-        // Setup Afternoon Actions
-        _afternoonActions.Add(new MoveHouseAction());
-        _afternoonActions.Add(new ForageAction());
-        _afternoonActions.Add(new ScavengeAction());
-        
-        // Setup Evening Actions
-        _eveningActions.Add(new MoveHouseAction());
-        _eveningActions.Add(new ForageAction());
-        _eveningActions.Add(new ScavengeAction());
-
         playerResources.food = 5;
         playerResources.water = 5;
+    }
+
+    private void SetupActions()
+    {
+        _playerActions.Clear();
+        _playerActions.Add(new MoveHouseAction());
+        _playerActions.Add(new ForageAction());
+        _playerActions.Add(new ScavengeAction());
     }
 
     private void StartGame()
     {
         SwitchTurnPhase(TurnPhases.Morning);
         gameProperties.GenerateNewTile();
+        gameProperties.GenerateNewTile();
     }
     
     private void StartOfDay()
     {
-        gameProperties.GenerateNewTile();
         gameProperties.currentDay++;
     }
 
@@ -167,11 +158,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         }
     }
 
-    /// <summary>
-    /// Selects a subset of actions from the list and returns the subset.
-    /// </summary>
-    /// <param name="allActions">All the actions to choose a subset from.</param>
-    private List<PlayerAction> SelectActions(List<PlayerAction> allActions)
+    /*private List<PlayerAction> SelectActions(List<PlayerAction> allActions)
     {
         if (allActions.Count < numberofActionsPerPhase)
             return allActions;
@@ -184,5 +171,5 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         }
 
         return selectedActions;
-    }
+    }*/
 }
