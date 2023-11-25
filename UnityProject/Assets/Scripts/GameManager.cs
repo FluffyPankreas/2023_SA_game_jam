@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    [SerializeField, Tooltip("Reference to the player resources script.")]
-    private Resources playerResources;
+    [Tooltip("Reference to the player resources script.")]
+    public Resources playerResources;
 
     [SerializeField, Tooltip("Reference to the player attributes script.")]
     private Attributes playerAttributes;
