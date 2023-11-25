@@ -3,6 +3,7 @@ using DarkMushroomGames.Architecture;
 using PlayerActions;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
@@ -29,20 +30,20 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [SerializeField, Tooltip("The parent to hold all the buttons.")]
     private Transform buttonLayoutParent;
 
+    public TurnPhases currentPhase;
+    
     private List<PlayerAction> _morningActions;
     private List<PlayerAction> _afternoonActions;
     private List<PlayerAction> _eveningActions;
 
     private List<GameObject> _buttons;
 
-    private TurnPhases _currentPhase;
-
-    // Building actions should be added
-    // Location actions
-
     public void Awake()
     {
         _morningActions = new List<PlayerAction>();
+        _afternoonActions = new List<PlayerAction>();
+        _eveningActions = new List<PlayerAction>();
+        
         _buttons = new List<GameObject>();
     }
     
@@ -55,30 +56,19 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     public void FinishAction()
     {
         Debug.Log("Action Finished.");
-        if (_currentPhase == TurnPhases.Morning)
+        if (currentPhase == TurnPhases.Morning)
         {
-            _currentPhase = TurnPhases.Afternoon;
-        }else if (_currentPhase == TurnPhases.Afternoon)
+            currentPhase = TurnPhases.Afternoon;
+        }else if (currentPhase == TurnPhases.Afternoon)
         {
-            _currentPhase = TurnPhases.Evening;
-        }else if (_currentPhase == TurnPhases.Evening)
+            currentPhase = TurnPhases.Evening;
+        }else if (currentPhase == TurnPhases.Evening)
         {
-            _currentPhase = TurnPhases.Morning;
+            currentPhase = TurnPhases.Morning;
             EndOfDay();
         }
     }
-    public void AddFood(int foodToAdd)
-    {
-        Debug.Log("Added food: " + foodToAdd);
-        playerResources.food += foodToAdd;
-    }
-
-    public void AddWater(int waterToAdd)
-    {
-        Debug.Log("Added water: " + waterToAdd);
-        playerResources.water += waterToAdd;
-    }
-
+   
     private void InitializeGame()
     {
         // Setup Morning Actions
@@ -87,10 +77,14 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         _morningActions.Add(new ForageAction());
         
         // Setup Afternoon Actions
+        _afternoonActions.Add(new MoveHouseAction());
+        _afternoonActions.Add(new ForageAction());
         
         // Setup Evening Actions
+        _eveningActions.Add(new MoveHouseAction());
+        _eveningActions.Add(new ForageAction());
 
-        _currentPhase = TurnPhases.Morning;
+        currentPhase = TurnPhases.Morning;
     }
 
     private void StartGame()
@@ -100,12 +94,12 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     
     private void StartOfDay()
     {
-        // Start of day -> Morning action -> Afternoon Action -> Evening Action -> End of Day
     }
 
     private void EndOfDay()
     {
         // Do end of day calculations and see if the player loses.
+        StartOfDay();
     }
 
     private void DisplayActions(List<PlayerAction> actionsToShow)
