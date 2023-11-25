@@ -105,15 +105,18 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         
         // Setup Morning Actions
         _morningActions.Clear();
+        _morningActions.Add(new MoveHouseAction());
         _morningActions.Add(new ForageAction());
         _morningActions.Add(new ScavengeAction());
         
         // Setup Afternoon Actions
         _afternoonActions.Add(new MoveHouseAction());
         _afternoonActions.Add(new ForageAction());
+        _afternoonActions.Add(new ScavengeAction());
         
         // Setup Evening Actions
         _eveningActions.Add(new MoveHouseAction());
+        _eveningActions.Add(new ForageAction());
         _eveningActions.Add(new ScavengeAction());
 
         playerResources.food = 5;
@@ -128,6 +131,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     
     private void StartOfDay()
     {
+        gameProperties.GenerateNewTile();
         gameProperties.currentDay++;
     }
 
