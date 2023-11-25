@@ -38,11 +38,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         // Start of day -> Morning action -> Afternoon Action -> Evening Action -> End of Day
     }
 
-    public void PlayerActionClicked()
-    {
-
-    }
-
     public void EndOfDay()
     {
         // Do end of day calculations and see if the player loses.
