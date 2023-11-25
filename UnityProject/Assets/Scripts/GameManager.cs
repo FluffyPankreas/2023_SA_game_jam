@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using DarkMushroomGames.Architecture;
+using PlayerActions;
 using UnityEngine;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
