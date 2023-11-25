@@ -3,8 +3,14 @@ using DarkMushroomGames.Architecture;
 using PlayerActions;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
+
+//TODO: Add a message when the baba yaga starts chasing the player
+//TODO: have the regions affect the actions
+    // Desert affects water
+    // Forest allows for hunting.
+//TODO: Add "explore the house" as an action.(based on random encounter stuff.)
+
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
