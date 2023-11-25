@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     private Resources playerResources;
     [SerializeField,Tooltip("Reference to the player attributes script.")]
     private Attributes playerAttributes;
+
+    [SerializeField,Tooltip("The number of actions that will be selected from all possible actions.")]
+    private int numberofActionsPerPhase = 3;
     
     private List<PlayerAction> morningActions;
     private List<PlayerAction> afternoonActions;
@@ -34,8 +37,18 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     /// <param name="allActions">All the actions to choose a subset from.</param>
     private List<PlayerAction> SelectActions(List<PlayerAction> allActions)
     {
-        //TODO: Implement the selection.
-        return allActions;
+        if (allActions.Count < numberofActionsPerPhase)
+            return allActions;
+
+        List<PlayerAction> selectedActions = new List<PlayerAction>();
+        
+        for (int i = 0; i < numberofActionsPerPhase; i++)
+        {
+            Debug.Log("i: " + i.ToString());
+            selectedActions = new List<PlayerAction>();
+        }
+
+        return selectedActions;
     }
 
 }
