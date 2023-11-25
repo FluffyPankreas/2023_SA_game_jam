@@ -39,24 +39,33 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     
     public void Start()
     {
+        InitializeGame();
+        StartGame();
+    }
+
+    private void InitializeGame()
+    {
         // Setup Morning Actions
+        _morningActions.Clear();
         _morningActions.Add(new MoveHouseAction());
-        _morningActions.Add(new MoveHouseAction());
-        _morningActions.Add(new MoveHouseAction());
-        _morningActions.Add(new MoveHouseAction());
+        _morningActions.Add(new ForageAction());
         
         // Setup Afternoon Actions
         
         // Setup Evening Actions
-        DisplayActions(_morningActions);
     }
 
-    public void StartOfDay()
+    private void StartGame()
+    {
+        DisplayActions(_morningActions);
+    }
+    
+    private void StartOfDay()
     {
         // Start of day -> Morning action -> Afternoon Action -> Evening Action -> End of Day
     }
 
-    public void EndOfDay()
+    private void EndOfDay()
     {
         // Do end of day calculations and see if the player loses.
     }
@@ -72,15 +81,14 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         }
         _buttons.Clear();
 
-        var selectedAction = _morningActions[0];
         foreach (var playerAction in actionsToShow)
         {
             var button = Instantiate(playerActionButtonPrefab, buttonLayoutParent);
             _buttons.Add(button);
             button.SetActive(true);
             
-            button.GetComponentInChildren<TextMeshProUGUI>().text = selectedAction.ButtonName;
-            button.GetComponent<Button>().onClick.AddListener(selectedAction.CalculateResult);
+            button.GetComponentInChildren<TextMeshProUGUI>().text = playerAction.ButtonName;
+            button.GetComponent<Button>().onClick.AddListener(playerAction.CalculateResult);
         }
     }
 
