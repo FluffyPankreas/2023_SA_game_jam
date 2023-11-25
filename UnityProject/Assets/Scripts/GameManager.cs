@@ -7,6 +7,13 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
+    public enum TurnPhases
+    {
+        Morning,
+        Afternoon,
+        Evening
+    }
+    
     [Tooltip("Reference to the player resources script.")]
     public Resources playerResources;
 
@@ -28,6 +35,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     private List<GameObject> _buttons;
 
+    private TurnPhases _currentPhase;
+
     // Building actions should be added
     // Location actions
 
@@ -43,6 +52,21 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         StartGame();
     }
 
+    public void FinishAction()
+    {
+        Debug.Log("Action Finished.");
+        if (_currentPhase == TurnPhases.Morning)
+        {
+            _currentPhase = TurnPhases.Afternoon;
+        }else if (_currentPhase == TurnPhases.Afternoon)
+        {
+            _currentPhase = TurnPhases.Evening;
+        }else if (_currentPhase == TurnPhases.Evening)
+        {
+            _currentPhase = TurnPhases.Morning;
+            EndOfDay();
+        }
+    }
     public void AddFood(int foodToAdd)
     {
         Debug.Log("Added food: " + foodToAdd);
@@ -65,6 +89,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         // Setup Afternoon Actions
         
         // Setup Evening Actions
+
+        _currentPhase = TurnPhases.Morning;
     }
 
     private void StartGame()

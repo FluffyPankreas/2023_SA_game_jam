@@ -12,6 +12,7 @@ namespace PlayerActions
         public override void CalculateResult()
         {
             Debug.Log("Move House Action.");
+            GameManager.Instance.FinishAction();
         }
     }
 }

@@ -14,6 +14,8 @@ namespace PlayerActions
             Debug.Log("Forage Action.");
             GameManager.Instance.AddFood(Random.Range(5, 10));
             GameManager.Instance.AddWater(Random.Range(0, 5));
+            
+            GameManager.Instance.FinishAction();
         }
     }
 }
