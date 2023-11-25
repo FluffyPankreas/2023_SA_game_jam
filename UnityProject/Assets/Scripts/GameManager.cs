@@ -11,16 +11,14 @@ using UnityEngine.UI;
     // Forest allows for hunting.
 //TODO: Add "explore the house" as an action.(based on random encounter stuff.)
 
-
+public enum TurnPhases
+{
+    Morning,
+    Afternoon,
+    Evening
+}
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    public enum TurnPhases
-    {
-        Morning,
-        Afternoon,
-        Evening
-    }
-    
     [Tooltip("Reference to the player resources script.")]
     public Resources playerResources;
 
@@ -30,15 +28,15 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [SerializeField, Tooltip("Reference to the game properties")]
     public GameProperties gameProperties;
 
-    [SerializeField, Tooltip("The number of actions that will be selected from all possible actions.")]
-    private int numberofActionsPerPhase = 3;
-
     [SerializeField, Tooltip("The button that will be instantiated for player actions.")]
     private GameObject playerActionButtonPrefab;
 
     [SerializeField, Tooltip("The parent to hold all the buttons.")]
     private Transform buttonLayoutParent;
 
+    public int foodConsumedPerDay = 2;
+    public int waterConsumedPerDay = 1;
+    
     public TurnPhases currentPhase;
     
     private List<PlayerAction> _playerActions;
@@ -103,7 +101,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         SetupActions();        
         
         playerResources.food = 5;
-        playerResources.water = 5;
+        playerResources.water = 3;
     }
 
     private void SetupActions()
@@ -128,12 +126,12 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     private void EndOfDay()
     {
-        playerResources.food -= 3;
-        playerResources.water -= 1;
+        playerResources.food -= foodConsumedPerDay;
+        playerResources.water -= waterConsumedPerDay;
 
         if (playerResources.food <= 0 || playerResources.water <= 0)
         {
-            Debug.Log("LOSE.");
+            //TODO: add the lose state and stuff here.
         }
     }
 
@@ -157,19 +155,4 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             button.GetComponent<Button>().onClick.AddListener(playerAction.CalculateResult);
         }
     }
-
-    /*private List<PlayerAction> SelectActions(List<PlayerAction> allActions)
-    {
-        if (allActions.Count < numberofActionsPerPhase)
-            return allActions;
-
-        List<PlayerAction> selectedActions = new List<PlayerAction>();
-
-        for (int i = 0; i < numberofActionsPerPhase; i++)
-        {
-            selectedActions = new List<PlayerAction>();
-        }
-
-        return selectedActions;
-    }*/
 }
