@@ -36,7 +36,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public int foodConsumedPerDay = 2;
     public int waterConsumedPerDay = 1;
-    
+
+    public DayNightCycle dayNightCycler;
     public TurnPhases currentPhase;
     
     private List<PlayerAction> _playerActions;
@@ -80,16 +81,19 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         {
             EndOfDay();
             StartOfDay();
+            dayNightCycler.SetPreset((int)TurnPhases.Morning);
             DisplayActions(_playerActions);
         }
         
         if (newPhase == TurnPhases.Afternoon)
         {
+            dayNightCycler.SetPreset((int)TurnPhases.Afternoon);
             DisplayActions(_playerActions);
         }
         
         if (newPhase == TurnPhases.Evening)
         {
+            dayNightCycler.SetPreset((int)TurnPhases.Evening);
             DisplayActions(_playerActions);
         }
 
