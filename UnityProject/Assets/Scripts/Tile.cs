@@ -34,7 +34,7 @@ public class Tile
     public FaunaTypes Fauna;
     public bool HasSettlement;
     
-    public int StaminaCost;
+    public int TravelCost;
 
     public Tile()
     {
@@ -55,19 +55,19 @@ public class Tile
         switch (Biome)
         {
             case Biomes.Desert:
-                StaminaCost = Random.Range(1, 5);
+                TravelCost = Random.Range(1, 5);
                 break;
             case Biomes.Forest:
-                StaminaCost = Random.Range(2, 4) ;
+                TravelCost = Random.Range(2, 4) ;
                 break;
             case Biomes.Mountains:
-                StaminaCost = Random.Range(1, 8);
+                TravelCost = Random.Range(1, 8);
                 break;
             case Biomes.Plains:
-                StaminaCost = Random.Range(1, 2);
+                TravelCost = Random.Range(1, 2);
                 break;
             case Biomes.Swamp:
-                StaminaCost = Random.Range(1, 2);
+                TravelCost = Random.Range(1, 2);
                 break;
         }
     }

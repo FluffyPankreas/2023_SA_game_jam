@@ -8,7 +8,6 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     [SerializeField] private TextMeshProUGUI foodLabel;
     [SerializeField] private TextMeshProUGUI waterLabel;
     [SerializeField] private TextMeshProUGUI woodLabel;
-    [SerializeField] private TextMeshProUGUI staminaLabel;
     [SerializeField] private TextMeshProUGUI hitPointsLabel;
 
     [Header("Game Information")]
@@ -36,7 +35,6 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         foodLabel.text = GameManager.Instance.playerResources.food.ToString();
         waterLabel.text = GameManager.Instance.playerResources.water.ToString();
         woodLabel.text = GameManager.Instance.playerResources.wood.ToString();
-        staminaLabel.text = GameManager.Instance.playerAttributes.houseStamina.ToString();
         hitPointsLabel.text = GameManager.Instance.playerAttributes.houseHitPoints.ToString(); 
 
         phasesLabel.text = GameManager.Instance.currentPhase.ToString();
@@ -49,12 +47,12 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         currentTileWeatherLabel.text = "Weather: " + GameManager.Instance.gameProperties.currentTile.WeatherCondition;
         currentTileFaunaLabel.text = "Fauna: " + GameManager.Instance.gameProperties.currentTile.Fauna;
         currentTileHasCityLabel.text = "HasCity: " + GameManager.Instance.gameProperties.currentTile.HasSettlement;
-        currentTileCostToMoveLabel.text = "CostToMove: " + GameManager.Instance.gameProperties.currentTile.StaminaCost;
+        currentTileCostToMoveLabel.text = "CostToMove: " + GameManager.Instance.gameProperties.currentTile.TravelCost;
         
         nextTileBiomeLabel.text = "Biome: " + GameManager.Instance.gameProperties.nextTile.Biome;
         nextTileWeatherLabel.text = "Weather: " + GameManager.Instance.gameProperties.nextTile.WeatherCondition;
         nextTileFaunaLabel.text = "Fauna: " + GameManager.Instance.gameProperties.nextTile.Fauna;
         nextTileHasCityLabel.text = "HasCity: " + GameManager.Instance.gameProperties.nextTile.HasSettlement;
-        nextTileCostToMoveLabel.text = "CostToMove: " + GameManager.Instance.gameProperties.nextTile.StaminaCost;
+        nextTileCostToMoveLabel.text = "CostToMove: " + GameManager.Instance.gameProperties.nextTile.TravelCost;
     }
 }

@@ -116,7 +116,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         
         playerResources.food = 5;
         playerResources.water = 3;
-        playerAttributes.houseStamina = 10;
+        playerResources.wood = 2;
+        
         playerAttributes.houseHitPoints = 3;
         
         _babaYagaChasing = false;
@@ -128,7 +129,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
        
         _playerActions.Clear();
 
-        if (playerAttributes.houseStamina >= gameProperties.nextTile.StaminaCost)
+        if (playerResources.wood >= gameProperties.nextTile.TravelCost)
         {
             _playerActions.Add(new MoveHouseAction());
         }
@@ -139,7 +140,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
         _playerActions.Add(new ForageAction());
         _playerActions.Add(new ScavengeAction());
-        _playerActions.Add(new RestAction());
     }
 
     private void StartGame()

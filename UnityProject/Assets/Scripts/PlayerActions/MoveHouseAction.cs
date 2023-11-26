@@ -18,8 +18,7 @@ namespace PlayerActions
             GameManager.Instance.gameProperties.GenerateNewTile();
             GameManager.Instance.tileManager.CreateTile(GameManager.Instance.gameProperties.GenerateNewTile());
             GameManager.Instance.gameProperties.playerTileIndex++;
-            GameManager.Instance.playerAttributes.houseStamina -=
-            GameManager.Instance.gameProperties.currentTile.StaminaCost;
+            GameManager.Instance.playerResources.wood -= GameManager.Instance.gameProperties.nextTile.TravelCost;
             AnimateHouse();
             GameManager.Instance.FinishAction();
             
