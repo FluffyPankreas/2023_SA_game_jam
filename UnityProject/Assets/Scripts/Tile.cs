@@ -5,7 +5,8 @@ public enum Biomes
     Desert,
     Forest,
     Mountains,
-    Plains
+    Plains,
+    Swamp
 }
 
 public enum WeatherConditions
@@ -63,6 +64,9 @@ public class Tile
                 StaminaCost = Random.Range(1, 8);
                 break;
             case Biomes.Plains:
+                StaminaCost = Random.Range(1, 2);
+                break;
+            case Biomes.Swamp:
                 StaminaCost = Random.Range(1, 2);
                 break;
         }
