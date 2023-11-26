@@ -30,6 +30,8 @@ public class TileManager : MonoBehaviour
         _previousTile = _currentTile;
         _currentTile = _nextTile;
         _nextTile = newRuntimeTile;
+        
+        
 
         if (_nextTile != null)
         {
@@ -39,14 +41,20 @@ public class TileManager : MonoBehaviour
 
         if (_currentTile != null)
         {
-            //_currentTile.transform.position = new Vector3(0, 0, 0);
             _currentTile.SetNewTargetPosition(0);
+        }
+        else if (_nextTile != null)
+        {
+            _nextTile.transform.position = new Vector3(0, 0, 35);
         }
 
         if (_previousTile != null)
         {
-            //_previousTile.transform.position = new Vector3(0, 0, -35);
             _previousTile.SetNewTargetPosition(-35);
+        }
+        else if(_currentTile != null)
+        {
+            _currentTile.transform.position = new Vector3(0, 0, 0);
         }
 
         newRuntimeTile.gameObject.SetActive(true);

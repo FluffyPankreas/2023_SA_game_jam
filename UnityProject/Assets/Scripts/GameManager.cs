@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     public TileManager tileManager;
 
     public Animator houseAnimator;
+    public GameObject babaYagaSprite;
     
     private List<PlayerAction> _playerActions;
 
@@ -58,7 +59,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public void FinishAction()
     {
-        Debug.Log("Action Finished.");
         if (currentPhase == TurnPhases.Morning)
         {
             SwitchTurnPhase(TurnPhases.Afternoon);
@@ -75,6 +75,12 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     {
         SetupActions();  
         
+        babaYagaSprite.SetActive(false);
+        if ((gameProperties.playerTileIndex - gameProperties.babaYagaTileIndex <= 1) && _babaYagaChasing)
+        {
+            babaYagaSprite.SetActive(true);
+        }
+
         if (newPhase == TurnPhases.Morning)
         {
             EndOfDay();
@@ -105,8 +111,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
         gameProperties.currentDay = 0;
         gameProperties.playerTileIndex = 0;
-        
-        
+
+        babaYagaSprite.SetActive(false);
         
         playerResources.food = 5;
         playerResources.water = 3;
