@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     public Resources playerResources;
 
     [SerializeField, Tooltip("Reference to the player attributes script.")]
-    private Attributes playerAttributes;
+    public Attributes playerAttributes;
 
     [SerializeField, Tooltip("Reference to the game properties")]
     public GameProperties gameProperties;
@@ -102,14 +102,22 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         
         playerResources.food = 5;
         playerResources.water = 3;
+        playerAttributes.houseStamina = 10;
     }
 
     private void SetupActions()
     {
+       
         _playerActions.Clear();
-        _playerActions.Add(new MoveHouseAction());
+
+        if (playerAttributes.houseStamina >= gameProperties.nextTile.StaminaCost)
+        {
+            _playerActions.Add(new MoveHouseAction());
+        }
+
         _playerActions.Add(new ForageAction());
         _playerActions.Add(new ScavengeAction());
+        _playerActions.Add(new RestAction());
     }
 
     private void StartGame()
@@ -137,8 +145,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     private void DisplayActions(List<PlayerAction> actionsToShow)
     {
-        Debug.Log("Displaying Actions.");
-
         foreach (var button in _buttons)
         {
             Destroy(button);

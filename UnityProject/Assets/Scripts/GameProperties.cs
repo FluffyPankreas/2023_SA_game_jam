@@ -12,14 +12,21 @@ public class GameProperties : MonoBehaviour
     public Tile currentTile => _tiles[playerTileIndex];
     public Tile nextTile => _tiles[^1];
     
-    public void Start()
+    public void Awake()
     {
         _tiles = new List<Tile>();
-        GenerateNewTile();// Always start with one tile.
     }
 
     public void GenerateNewTile()
     {
         _tiles.Add( new Tile());
+        
+        var tileString = "";
+        foreach (var tile in _tiles)
+        {
+            tileString += tile.Biome;
+            tileString += " -> ";
+        }
+        Debug.Log(tileString);
     }
 }
