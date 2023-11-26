@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         _playerActions.Add(new MoveHouseAction());
         _playerActions.Add(new ForageAction());
         _playerActions.Add(new ScavengeAction());
+        _playerActions.Add(new RestAction());
     }
 
     private void StartGame()
