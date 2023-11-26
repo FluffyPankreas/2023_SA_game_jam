@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     public Resources playerResources;
 
     [SerializeField, Tooltip("Reference to the player attributes script.")]
-    private Attributes playerAttributes;
+    public Attributes playerAttributes;
 
     [SerializeField, Tooltip("Reference to the game properties")]
     public GameProperties gameProperties;
