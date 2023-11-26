@@ -5,6 +5,7 @@ using UnityEngine;
 public class TileRuntimeObject : MonoBehaviour
 {
         public List<GameObject> terrainTypes;
+        public List<GameObject> animalTypes;
         public float moveSpeed;
         
         private float targetZ;
@@ -19,6 +20,20 @@ public class TileRuntimeObject : MonoBehaviour
                 }
 
                 terrainTypes[terrainIndex].SetActive(true);
+        }
+
+        public void SetAnimalType(int animalIndex)
+        {
+                foreach (var animal in animalTypes)
+                {
+                        animal.SetActive(false);
+                }
+
+                if (animalIndex > 0)
+                {
+                        Debug.Log("activating an animal. " + animalIndex);
+                        animalTypes[animalIndex - 1].SetActive(true);
+                }
         }
 
         public void SetNewTargetPosition(float _targetZ)

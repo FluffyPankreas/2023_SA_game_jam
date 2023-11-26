@@ -13,8 +13,7 @@ public enum WeatherConditions
 {
     Clear,
     Raining,
-    Storm,
-    Overcast,
+    Fog,
     Snow
 }
 
@@ -39,7 +38,7 @@ public class Tile
     public Tile()
     {
         RandomizeBiome();
-        SetStaminaCost();
+        SetTravelCost();
         SetWeatherCondition();
         SetFauna();
         SetSettlements();
@@ -50,7 +49,7 @@ public class Tile
          Biome = (Biomes)Random.Range(0, 5);
     }
 
-    private void SetStaminaCost()
+    private void SetTravelCost()
     {
         switch (Biome)
         {

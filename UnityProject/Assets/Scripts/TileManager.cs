@@ -21,6 +21,7 @@ public class TileManager : MonoBehaviour
     {
         var newRuntimeTile = Instantiate(tilePrefab, transform);
         newRuntimeTile.SetTerrainType((int)newTile.Biome);
+        newRuntimeTile.SetAnimalType((int)newTile.Fauna);
 
         if (_previousTile != null)
         {
