@@ -102,6 +102,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         
         playerResources.food = 5;
         playerResources.water = 3;
+        playerAttributes.houseStamina = 10;
     }
 
     private void SetupActions()

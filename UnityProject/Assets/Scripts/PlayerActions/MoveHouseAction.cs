@@ -14,6 +14,8 @@ namespace PlayerActions
             Debug.Log("Move House Action.");
             GameManager.Instance.gameProperties.GenerateNewTile();
             GameManager.Instance.gameProperties.playerTileIndex++;
+            GameManager.Instance.playerAttributes.houseStamina -=
+                GameManager.Instance.gameProperties.currentTile.StaminaCost;
             GameManager.Instance.FinishAction();
         }
     }

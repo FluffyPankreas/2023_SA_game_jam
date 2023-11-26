@@ -1,7 +1,6 @@
 using DarkMushroomGames.Architecture;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class UIManager : MonoBehaviourSingleton<UIManager>
 {
