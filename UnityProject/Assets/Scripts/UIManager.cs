@@ -33,11 +33,11 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     
     public void Update()
     {
-        foodLabel.text = "Food: " + GameManager.Instance.playerResources.food;
-        waterLabel.text = "Water: " + GameManager.Instance.playerResources.water;
-        woodLabel.text = "Wood: " + GameManager.Instance.playerResources.wood;
-        staminaLabel.text = "Stamina: " + GameManager.Instance.playerAttributes.houseStamina;
-        hitPointsLabel.text = "HitPoints: " + GameManager.Instance.playerAttributes.houseHitPoints; 
+        foodLabel.text = GameManager.Instance.playerResources.food.ToString();
+        waterLabel.text = GameManager.Instance.playerResources.water.ToString();
+        woodLabel.text = GameManager.Instance.playerResources.wood.ToString();
+        staminaLabel.text = GameManager.Instance.playerAttributes.houseStamina.ToString();
+        hitPointsLabel.text = GameManager.Instance.playerAttributes.houseHitPoints.ToString(); 
 
         phasesLabel.text = GameManager.Instance.currentPhase.ToString();
         dayLabel.text = "Day# " + GameManager.Instance.gameProperties.currentDay.ToString();
