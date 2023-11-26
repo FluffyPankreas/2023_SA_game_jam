@@ -12,7 +12,7 @@ public class GameProperties : MonoBehaviour
     public Tile currentTile => _tiles[playerTileIndex];
     public Tile nextTile => _tiles[^1];
     
-    public void Start()
+    public void Awake()
     {
         _tiles = new List<Tile>();
     }
