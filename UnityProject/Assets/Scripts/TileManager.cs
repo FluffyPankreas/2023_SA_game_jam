@@ -1,8 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TileManager : MonoBehaviour
 {
     public TileRuntimeObject tilePrefab;
+    public float scaleSpeed = 0.015f;
     private TileRuntimeObject _nextTile;
     private TileRuntimeObject _currentTile;
     private TileRuntimeObject _previousTile;
@@ -18,7 +21,34 @@ public class TileManager : MonoBehaviour
     {
         var newRuntimeTile = Instantiate(tilePrefab, transform);
         newRuntimeTile.SetTerrainType((int)newTile.Biome);
+
+        if (_previousTile != null)
+        {
+            Destroy(_previousTile.gameObject);
+        }
+
+        _previousTile = _currentTile;
+        _currentTile = _nextTile;
+        _nextTile = newRuntimeTile;
+
+        if (_nextTile != null)
+        {
+            _nextTile.transform.position = new Vector3(0, 0, 70);
+            _nextTile.SetNewTargetPosition(35);
+        }
+
+        if (_currentTile != null)
+        {
+            //_currentTile.transform.position = new Vector3(0, 0, 0);
+            _currentTile.SetNewTargetPosition(0);
+        }
+
+        if (_previousTile != null)
+        {
+            //_previousTile.transform.position = new Vector3(0, 0, -35);
+            _previousTile.SetNewTargetPosition(-35);
+        }
+
         newRuntimeTile.gameObject.SetActive(true);
     }
-
 }

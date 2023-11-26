@@ -5,6 +5,11 @@ using UnityEngine;
 public class TileRuntimeObject : MonoBehaviour
 {
         public List<GameObject> terrainTypes;
+        public float moveSpeed;
+        
+        private float targetZ;
+
+        private bool moving = false;
 
         public void SetTerrainType(int terrainIndex)
         {
@@ -13,7 +18,27 @@ public class TileRuntimeObject : MonoBehaviour
                         terrain.SetActive(false);
                 }
 
-                Debug.Log("Setting terrain: " + terrainIndex);
                 terrainTypes[terrainIndex].SetActive(true);
+        }
+
+        public void SetNewTargetPosition(float _targetZ)
+        {
+                targetZ = _targetZ;
+                moving = true;
+        }
+
+        public void Update()
+        {
+                if (transform.position.z != targetZ && moving)
+                {
+                        var newZ = transform.position.z - (moveSpeed * Time.deltaTime);
+                        if (newZ <= targetZ)
+                        {
+                                newZ = targetZ;
+                                moving = false;
+                        }
+
+                        transform.localPosition = new Vector3(0, 0, newZ);
+                }
         }
 }
