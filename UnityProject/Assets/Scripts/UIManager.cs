@@ -9,9 +9,13 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     [SerializeField] private TextMeshProUGUI waterLabel;
     [SerializeField] private TextMeshProUGUI woodLabel;
     [SerializeField] private TextMeshProUGUI staminaLabel;
+    [SerializeField] private TextMeshProUGUI hitPointsLabel;
 
     [Header("Game Information")]
     [SerializeField] private TextMeshProUGUI phasesLabel;
+    [SerializeField] private TextMeshProUGUI dayLabel;
+    [SerializeField] private TextMeshProUGUI playerIndexLabel;
+    [SerializeField] private TextMeshProUGUI babaYagaIndexLabel;
 
     [Header("Current Tile")]
     [SerializeField] private TextMeshProUGUI currentTileBiomeLabel;
@@ -33,15 +37,19 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         waterLabel.text = "Water: " + GameManager.Instance.playerResources.water;
         woodLabel.text = "Wood: " + GameManager.Instance.playerResources.wood;
         staminaLabel.text = "Stamina: " + GameManager.Instance.playerAttributes.houseStamina;
+        hitPointsLabel.text = "HitPoints: " + GameManager.Instance.playerAttributes.houseHitPoints; 
 
         phasesLabel.text = GameManager.Instance.currentPhase.ToString();
+        dayLabel.text = "Day# " + GameManager.Instance.gameProperties.currentDay.ToString();
+        playerIndexLabel.text = "PlayerIndex: " + GameManager.Instance.gameProperties.playerTileIndex;
+        babaYagaIndexLabel.text = "BabaYagaIndex: " + GameManager.Instance.gameProperties.babaYagaTileIndex;
+        
 
         currentTileBiomeLabel.text = "Biome: " + GameManager.Instance.gameProperties.currentTile.Biome;
         currentTileWeatherLabel.text = "Weather: " + GameManager.Instance.gameProperties.currentTile.WeatherCondition;
         currentTileFaunaLabel.text = "Fauna: " + GameManager.Instance.gameProperties.currentTile.Fauna;
         currentTileHasCityLabel.text = "HasCity: " + GameManager.Instance.gameProperties.currentTile.HasSettlement;
         currentTileCostToMoveLabel.text = "CostToMove: " + GameManager.Instance.gameProperties.currentTile.StaminaCost;
-        
         
         nextTileBiomeLabel.text = "Biome: " + GameManager.Instance.gameProperties.nextTile.Biome;
         nextTileWeatherLabel.text = "Weather: " + GameManager.Instance.gameProperties.nextTile.WeatherCondition;

@@ -43,10 +43,11 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     private List<GameObject> _buttons;
 
+    private bool _babaYagaChasing;
+
     public void Awake()
     {
         _playerActions = new List<PlayerAction>();
-        
         _buttons = new List<GameObject>();
     }
     
@@ -73,6 +74,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     private void SwitchTurnPhase(TurnPhases newPhase)
     {
+        SetupActions();  
+        
         if (newPhase == TurnPhases.Morning)
         {
             EndOfDay();
@@ -95,14 +98,21 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
    
     private void InitializeGame()
     {
+        gameProperties.GenerateNewTile();
+        gameProperties.GenerateNewTile();
+
         gameProperties.currentDay = 0;
         gameProperties.playerTileIndex = 0;
         
-        SetupActions();        
+        
         
         playerResources.food = 5;
         playerResources.water = 3;
         playerAttributes.houseStamina = 10;
+        playerAttributes.houseHitPoints = 3;
+        
+        _babaYagaChasing = false;
+        gameProperties.babaYagaTileIndex = 0;
     }
 
     private void SetupActions()
@@ -114,6 +124,10 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         {
             _playerActions.Add(new MoveHouseAction());
         }
+        else
+        {
+            Debug.Log("It's too far. Rest first.");
+        }
 
         _playerActions.Add(new ForageAction());
         _playerActions.Add(new ScavengeAction());
@@ -123,8 +137,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     private void StartGame()
     {
         SwitchTurnPhase(TurnPhases.Morning);
-        gameProperties.GenerateNewTile();
-        gameProperties.GenerateNewTile();
+      
     }
     
     private void StartOfDay()
@@ -137,9 +150,38 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         playerResources.food -= foodConsumedPerDay;
         playerResources.water -= waterConsumedPerDay;
 
+        HandleBabaYagaChase();
+        
         if (playerResources.food <= 0 || playerResources.water <= 0)
         {
             //TODO: add the lose state and stuff here.
+        }
+    }
+
+    private void HandleBabaYagaChase()
+    {
+        
+        if (gameProperties.currentDay >= 2 && !_babaYagaChasing)
+        {
+            Debug.Log("The Baba Yaga has started chasing you!");
+            _babaYagaChasing = true;
+        }
+
+        if (_babaYagaChasing)
+        {
+            gameProperties.babaYagaTileIndex++;
+            if (gameProperties.babaYagaTileIndex > gameProperties.playerTileIndex)
+                gameProperties.babaYagaTileIndex = gameProperties.playerTileIndex;
+            
+            if (gameProperties.babaYagaTileIndex == gameProperties.playerTileIndex)
+            {
+                Debug.Log("The Baba Yaga has caught up with you!");
+                playerAttributes.houseHitPoints -= 1;
+                gameProperties.babaYagaTileIndex -= 3;
+                if (gameProperties.babaYagaTileIndex < 0)
+                    gameProperties.babaYagaTileIndex = 0;
+            }    
+            
         }
     }
 
