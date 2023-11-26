@@ -17,16 +17,11 @@ public class GameProperties : MonoBehaviour
         _tiles = new List<Tile>();
     }
 
-    public void GenerateNewTile()
+    public Tile GenerateNewTile()
     {
-        _tiles.Add( new Tile());
+        var newTile = new Tile();
+        _tiles.Add(new Tile());
         
-        var tileString = "";
-        foreach (var tile in _tiles)
-        {
-            tileString += tile.Biome;
-            tileString += " -> ";
-        }
-        Debug.Log(tileString);
+        return newTile;
     }
 }

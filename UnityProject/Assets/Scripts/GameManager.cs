@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public DayNightCycle dayNightCycler;
     public TurnPhases currentPhase;
+
+    public TileManager tileManager;
     
     private List<PlayerAction> _playerActions;
 
@@ -102,8 +104,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
    
     private void InitializeGame()
     {
-        gameProperties.GenerateNewTile();
-        gameProperties.GenerateNewTile();
+        tileManager.CreateTile(gameProperties.GenerateNewTile());
+        tileManager.CreateTile(gameProperties.GenerateNewTile());
 
         gameProperties.currentDay = 0;
         gameProperties.playerTileIndex = 0;

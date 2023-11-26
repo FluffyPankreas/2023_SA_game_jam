@@ -47,7 +47,7 @@ public class Tile
     
     private void RandomizeBiome()
     {
-         Biome = (Biomes)Random.Range(0, 4);
+         Biome = (Biomes)Random.Range(0, 5);
     }
 
     private void SetStaminaCost()
