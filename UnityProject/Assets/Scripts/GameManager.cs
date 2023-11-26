@@ -107,8 +107,14 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     private void SetupActions()
     {
+       
         _playerActions.Clear();
-        _playerActions.Add(new MoveHouseAction());
+
+        if (playerAttributes.houseStamina >= gameProperties.nextTile.StaminaCost)
+        {
+            _playerActions.Add(new MoveHouseAction());
+        }
+
         _playerActions.Add(new ForageAction());
         _playerActions.Add(new ScavengeAction());
         _playerActions.Add(new RestAction());
@@ -139,8 +145,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     private void DisplayActions(List<PlayerAction> actionsToShow)
     {
-        Debug.Log("Displaying Actions.");
-
         foreach (var button in _buttons)
         {
             Destroy(button);

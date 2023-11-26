@@ -11,7 +11,7 @@ namespace PlayerActions
         public override void CalculateResult()
         {
             Debug.Log("Rest Action.");
-            GameManager.Instance.playerAttributes.houseStamina += Random.Range(4, 6);
+            GameManager.Instance.playerAttributes.houseStamina += 4;
             GameManager.Instance.FinishAction();
         }
     }
