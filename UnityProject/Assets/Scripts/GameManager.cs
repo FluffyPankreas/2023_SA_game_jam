@@ -5,12 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-//TODO: Add a message when the baba yaga starts chasing the player
-//TODO: have the regions affect the actions
-    // Desert affects water
-    // Forest allows for hunting.
-//TODO: Add "explore the house" as an action.(based on random encounter stuff.)
-
 public enum TurnPhases
 {
     Morning,
@@ -41,6 +35,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     public TurnPhases currentPhase;
 
     public TileManager tileManager;
+
+    public Animator houseAnimator;
     
     private List<PlayerAction> _playerActions;
 

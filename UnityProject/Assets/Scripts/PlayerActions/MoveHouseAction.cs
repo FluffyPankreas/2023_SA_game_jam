@@ -1,4 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Windows.WebCam;
 
 namespace PlayerActions
 {
@@ -16,7 +20,16 @@ namespace PlayerActions
             GameManager.Instance.gameProperties.playerTileIndex++;
             GameManager.Instance.playerAttributes.houseStamina -=
             GameManager.Instance.gameProperties.currentTile.StaminaCost;
+            AnimateHouse();
             GameManager.Instance.FinishAction();
+            
+        }
+
+        private async void AnimateHouse()
+        {
+            GameManager.Instance.houseAnimator.SetBool("Walking",true);
+            await Task.Delay(1750);
+            GameManager.Instance.houseAnimator.SetBool("Walking",false);
         }
     }
 }
