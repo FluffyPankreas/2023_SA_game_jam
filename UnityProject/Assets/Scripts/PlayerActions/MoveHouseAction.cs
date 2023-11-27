@@ -10,7 +10,7 @@ namespace PlayerActions
     {
         public MoveHouseAction()
         {
-            ButtonName = "Move the House";
+            ButtonName = "Move";
         }
         public override void CalculateResult()
         {

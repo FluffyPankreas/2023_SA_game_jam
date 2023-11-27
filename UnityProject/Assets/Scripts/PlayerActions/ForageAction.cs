@@ -6,7 +6,7 @@ namespace PlayerActions
     {
         public ForageAction()
         {
-            ButtonName = "Forage for Food";
+            ButtonName = "Look for food and water";
         }
 
         public override void CalculateResult()
