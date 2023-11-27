@@ -48,6 +48,18 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     private bool _babaYagaChasing;
 
+    public GameObject overnightPanel;
+    public TextMeshProUGUI _waterCostLabel;
+    public TextMeshProUGUI _foodCostLabel;
+    public TextMeshProUGUI _woodCostLabel;
+    public TextMeshProUGUI _hitPointCostLabel;
+
+
+    private int endOfTurnWaterCost;
+    private int endOfTurnFoodCost;
+    private int endOfTurnWoodCost;
+    private int endOfTurnHitPointCost;
+    
     public void Awake()
     {
         _playerActions = new List<PlayerAction>();
@@ -76,9 +88,10 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     private void SwitchTurnPhase(TurnPhases newPhase)
     {
-        SetupActions();  
+        SetupActions(newPhase);
         
         babaYagaSprite.SetActive(false);
+        
         if ((gameProperties.playerTileIndex - gameProperties.babaYagaTileIndex <= 1) && _babaYagaChasing)
         {
             babaYagaSprite.SetActive(true);
@@ -101,10 +114,40 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         if (newPhase == TurnPhases.Evening)
         {
             dayNightCycler.SetPreset((int)TurnPhases.Evening);
+            overnightPanel.SetActive(true);
+            // Water Costs
+            endOfTurnWaterCost = 0;
+            endOfTurnWaterCost += waterConsumedPerDay;
+            if (gameProperties.currentTile.Biome == Biomes.Desert)
+            {
+                Debug.Log("More water because of desert. ");
+                endOfTurnWaterCost++;
+            }
+            _waterCostLabel.text = endOfTurnWaterCost.ToString();
+            
+            // Food Costs
+            endOfTurnFoodCost = 0;
+            endOfTurnFoodCost += foodConsumedPerDay;
+            _foodCostLabel.text = endOfTurnFoodCost.ToString();
+            
+            // Wood Costs
+            endOfTurnWoodCost = 0;
+            _woodCostLabel.text = endOfTurnWoodCost.ToString();
+
+            // HitPoint Cost
+            endOfTurnHitPointCost = 0;
+            if (gameProperties.currentTile.Biome == Biomes.Swamp)
+            {
+                endOfTurnHitPointCost++;
+            }
+            _hitPointCostLabel.text = endOfTurnHitPointCost.ToString();
+            
             DisplayActions(_playerActions);
         }
 
         currentPhase = newPhase;
+        
+        
     }
    
     private void InitializeGame()
@@ -127,12 +170,16 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         gameProperties.babaYagaTileIndex = 0;
     }
 
-    private void SetupActions()
+    private void SetupActions(TurnPhases newPhase)
     {
        
         _playerActions.Clear();
 
-        if (playerResources.wood >= gameProperties.nextTile.TravelCost)
+        Debug.Log(playerResources.wood >= gameProperties.nextTile.TravelCost);
+        Debug.Log(newPhase != TurnPhases.Evening);
+        Debug.Log("Should the button appear?: " + ((playerResources.wood >= gameProperties.nextTile.TravelCost) &&
+                                                   (newPhase != TurnPhases.Evening)));
+        if ((playerResources.wood >= gameProperties.nextTile.TravelCost) && (newPhase != TurnPhases.Evening))
         {
             _playerActions.Add(new MoveHouseAction());
         }
@@ -150,13 +197,16 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     private void StartOfDay()
     {
         gameProperties.currentDay++;
+        overnightPanel.SetActive(false);
     }
 
     private void EndOfDay()
     {
-        playerResources.food -= foodConsumedPerDay;
-        playerResources.water -= waterConsumedPerDay;
-
+        playerResources.water -= endOfTurnWaterCost;
+        playerResources.food -= endOfTurnFoodCost;
+        playerResources.wood -= endOfTurnWoodCost;
+        playerAttributes.houseHitPoints -= endOfTurnHitPointCost;
+        
         HandleBabaYagaChase();
         
         if (playerResources.food <= 0 || playerResources.water <= 0)
