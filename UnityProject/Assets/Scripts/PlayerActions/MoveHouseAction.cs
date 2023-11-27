@@ -14,11 +14,10 @@ namespace PlayerActions
         }
         public override void CalculateResult()
         {
-            Debug.Log("Move House Action.");
             GameManager.Instance.gameProperties.GenerateNewTile();
             GameManager.Instance.tileManager.CreateTile(GameManager.Instance.gameProperties.GenerateNewTile());
             GameManager.Instance.gameProperties.playerTileIndex++;
-            GameManager.Instance.playerResources.wood -= GameManager.Instance.gameProperties.nextTile.TravelCost;
+            GameManager.Instance.playerResources.wood -= GameManager.Instance.gameProperties.currentTile.TravelCost;
             GameManager.Instance.playerResources.water -= 1;
             AnimateHouse();
             GameManager.Instance.FinishAction();

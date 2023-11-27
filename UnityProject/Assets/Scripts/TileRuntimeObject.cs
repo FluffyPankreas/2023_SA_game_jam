@@ -31,7 +31,6 @@ public class TileRuntimeObject : MonoBehaviour
 
                 if (animalIndex > 0)
                 {
-                        Debug.Log("activating an animal. " + animalIndex);
                         animalTypes[animalIndex - 1].SetActive(true);
                 }
         }

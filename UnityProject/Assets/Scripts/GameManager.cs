@@ -136,10 +136,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         {
             _playerActions.Add(new MoveHouseAction());
         }
-        else
-        {
-            Debug.Log("It's too far. Rest first.");
-        }
 
         _playerActions.Add(new ForageAction());
         _playerActions.Add(new ScavengeAction());
