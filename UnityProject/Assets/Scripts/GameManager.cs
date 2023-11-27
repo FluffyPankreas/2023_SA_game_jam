@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     public Animator houseAnimator;
     public GameObject babaYagaSprite;
+
+    public GameObject gameOverScreen;
+    public TextMeshProUGUI gameOverMessage;
     
     private List<PlayerAction> _playerActions;
 
@@ -162,7 +165,14 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         
         if (playerResources.food <= 0 || playerResources.water <= 0)
         {
-            //TODO: add the lose state and stuff here.
+            gameOverMessage.text = "You ran out of food and water.";
+            gameOverScreen.SetActive(true);
+        }
+
+        if (playerAttributes.houseHitPoints <= 0)
+        {
+            gameOverMessage.text = "The Baba Yaga caught up with you!";
+            gameOverScreen.SetActive(true);
         }
     }
 
@@ -183,7 +193,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             
             if (gameProperties.babaYagaTileIndex == gameProperties.playerTileIndex)
             {
-                Debug.Log("The Baba Yaga has caught up with you!");
+                Debug.Log("The Baba Yaga has caught up with you, and destroyed the house!");
                 playerAttributes.houseHitPoints -= 1;
                 gameProperties.babaYagaTileIndex -= 3;
                 if (gameProperties.babaYagaTileIndex < 0)
