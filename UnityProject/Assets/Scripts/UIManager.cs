@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviourSingleton<UIManager>
 {
+    public TextMeshProUGUI messagePrefab;
+    public Transform messageParent;
+    
     [Header("Player Information")]
     [SerializeField] private TextMeshProUGUI foodLabel;
     [SerializeField] private TextMeshProUGUI waterLabel;
@@ -32,7 +35,13 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     [Header("Costs")] 
     [SerializeField] private TextMeshProUGUI movementWoodCostLabel;
-    
+
+    public void AddMessage(string message)
+    {
+        var newMessage = Instantiate(messagePrefab, messageParent);
+        newMessage.text = message;
+        newMessage.gameObject.SetActive(true);
+    }
     public void Update()
     {
         foodLabel.text = GameManager.Instance.playerResources.food.ToString();
