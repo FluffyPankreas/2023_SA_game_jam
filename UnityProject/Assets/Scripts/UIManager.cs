@@ -29,6 +29,9 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     [SerializeField] private TextMeshProUGUI nextTileFaunaLabel;
     [SerializeField] private TextMeshProUGUI nextTileHasCityLabel;
     [SerializeField] private TextMeshProUGUI nextTileCostToMoveLabel;
+
+    [Header("Costs")] 
+    [SerializeField] private TextMeshProUGUI movementWoodCostLabel;
     
     public void Update()
     {
@@ -54,5 +57,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         nextTileFaunaLabel.text = "Fauna: " + GameManager.Instance.gameProperties.nextTile.Fauna;
         nextTileHasCityLabel.text = "HasCity: " + GameManager.Instance.gameProperties.nextTile.HasSettlement;
         nextTileCostToMoveLabel.text = "CostToMove: " + GameManager.Instance.gameProperties.nextTile.TravelCost;
+
+        movementWoodCostLabel.text = GameManager.Instance.gameProperties.nextTile.TravelCost.ToString();
     }
 }
