@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             endOfTurnWaterCost += waterConsumedPerDay;
             if (gameProperties.currentTile.Biome == Biomes.Desert)
             {
-                Debug.Log("More water because of desert. ");
+                UIManager.Instance.AddMessage("More water used because of staying in the desert.");
                 endOfTurnWaterCost++;
             }
             _waterCostLabel.text = endOfTurnWaterCost.ToString();
@@ -175,10 +175,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
        
         _playerActions.Clear();
 
-        Debug.Log(playerResources.wood >= gameProperties.nextTile.TravelCost);
-        Debug.Log(newPhase != TurnPhases.Evening);
-        Debug.Log("Should the button appear?: " + ((playerResources.wood >= gameProperties.nextTile.TravelCost) &&
-                                                   (newPhase != TurnPhases.Evening)));
         if ((playerResources.wood >= gameProperties.nextTile.TravelCost) && (newPhase != TurnPhases.Evening))
         {
             _playerActions.Add(new MoveHouseAction());
@@ -220,6 +216,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             gameOverMessage.text = "The Baba Yaga caught up with you!";
             gameOverScreen.SetActive(true);
         }
+
+        UIManager.Instance.AddMessage("You rest, and have some food and drink.");
     }
 
     private void HandleBabaYagaChase()
@@ -239,7 +237,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             
             if (gameProperties.babaYagaTileIndex == gameProperties.playerTileIndex)
             {
-                Debug.Log("The Baba Yaga has caught up with you, and destroyed the house!");
+                UIManager.Instance.AddMessage("The Baba Yaga has caught up with you and managed to damage the house.");
                 playerAttributes.houseHitPoints -= 1;
                 gameProperties.babaYagaTileIndex -= 3;
                 if (gameProperties.babaYagaTileIndex < 0)
